@@ -13,7 +13,7 @@ export class Game extends Scene {
         this.load.image('ground', 'assets/platform.png');
         this.load.image('star', 'assets/star.png');
         this.load.image('bomb', 'assets/bomb.png');
-        this.load.image('lava', assets/lava.png)
+        this.load.image('lava', 'assets/lava.png');
         this.load.spritesheet('dude',
             'assets/dude.png',
             { frameWidth: 32, frameHeight: 48 }
@@ -34,7 +34,15 @@ export class Game extends Scene {
 
     this.score += 10;
     this.scoreText.setText('Score: ' + this.score);
+    }    
+
+    lavaHurt(_player: any, lava: Phaser.Types.Physics.Arcade.SpriteWithStaticBody) {
+    
+        this.score -= 10;
+        this.scoreText.setText('Score: ' + this.score);
+        
     }
+
 
     create() {
         this.cursors = this.input.keyboard!.createCursorKeys();
@@ -48,6 +56,8 @@ export class Game extends Scene {
         this.platforms.create(600, 400, 'ground');
         this.platforms.create(50, 250, 'ground');
         this.platforms.create(750, 220, 'ground');
+        this.lava = this.physics.add.staticGroup();
+        this.lava.create(300,300, 'lava');
 
 
         this.player = this.physics.add.sprite(100, 450, 'dude');
@@ -109,6 +119,10 @@ export class Game extends Scene {
         this.physics.add.collider(this.player, this.platforms);
 
         this.physics.add.collider(this.stars, this.platforms);
+
+        this.physics.add.collider(this.stars, this.lava)
+
+        this.physics.add.overlap(this.player, this.lava, this.lavaHurt, undefined, this );
 
         if (this.cursors.left.isDown) {
             this.player.setVelocityX(-160);
