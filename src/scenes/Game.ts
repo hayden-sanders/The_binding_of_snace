@@ -1,4 +1,4 @@
-import { Physics, Scene } from 'phaser';
+import { Scene } from 'phaser';
 
 export class Game extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
@@ -13,18 +13,27 @@ export class Game extends Scene {
         this.load.image('ground', 'assets/platform.png');
         this.load.image('star', 'assets/star.png');
         this.load.image('bomb', 'assets/bomb.png');
+        this.load.image('lava', assets/lava.png)
         this.load.spritesheet('dude',
             'assets/dude.png',
             { frameWidth: 32, frameHeight: 48 }
         );
     }
 
+
+    
     platforms: any;
+    lava: any;
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
     cursors: any;
     stars: any;
-    collectStar(player: any, star: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody){
-        star.disableBody(true,true);
+    score = 0;
+    scoreText: any;
+    collectStar(_player: any, star: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody){
+        star.disableBody(true, true);
+
+    this.score += 10;
+    this.scoreText.setText('Score: ' + this.score);
     }
 
     create() {
@@ -79,17 +88,22 @@ export class Game extends Scene {
             setXY: { x: 12, y: 0, stepX: 70 }
         });
 
-        this.stars.children.iterate(function (child) {
+       this.stars.children.iterate(function (child) {
 
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-
+        
         });
+
+        
+        this.scoreText = this.add.text(0, 0, 'score: 0', { fontSize: '32px', fill: '#000' });
 
     }
 
 
     update() {
 
+       
+        
         this.physics.add.overlap(this.player, this.stars, this.collectStar, undefined, this);
 
         this.physics.add.collider(this.player, this.platforms);
