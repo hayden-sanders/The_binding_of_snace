@@ -15,8 +15,8 @@ export class Game extends Scene {
         this.load.image('bomb', 'assets/bomb.png');
         this.load.image('lava', 'assets/lava.png');
         this.load.spritesheet('dude',
-            'assets/dude.png',
-            { frameWidth: 32, frameHeight: 48 }
+            'assets/issac.png',
+            { frameWidth: 32, frameHeight: 35 }
         );
     }
 
