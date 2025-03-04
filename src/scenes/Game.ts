@@ -14,14 +14,14 @@ export class Game extends Scene {
         this.load.image('star', 'assets/star.png');
         this.load.image('bomb', 'assets/bomb.png');
         this.load.image('lava', 'assets/lava.png');
-        this.load.spritesheet('dude',
-            'assets/issac.png',
+        this.load.image('teleporter', 'assets/win.png') //load teleporter png
+        this.load.spritesheet('dude', 'assets/issac.png',
             { frameWidth: 32, frameHeight: 35 }
         );
     }
 
 
-
+    teleporters: any;
     platforms: any;
     lava: any;
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
@@ -40,7 +40,7 @@ export class Game extends Scene {
     lavaHurt(_player: any, _lava: Phaser.Types.Physics.Arcade.SpriteWithStaticBody) {
         if (this.immunityFrames <= 0) {
             this.score -= 10;
-            this.scoreText.setText('Score: ' + this.score);
+            this.scoreText.setText('Score: ' + this.score);    
             this.immunityFrames = 60;
 
 
@@ -58,12 +58,13 @@ export class Game extends Scene {
         this.lava = this.physics.add.staticGroup();
 
         this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-
         this.platforms.create(600, 400, 'ground');
         this.platforms.create(50, 250, 'ground');
         this.platforms.create(750, 220, 'ground');
         this.lava.create(300, 300, 'lava');
 
+        this.teleporters = this.physics.add.staticGroup();
+        this.teleporters.create(750,120, "teleporter")
 
         this.player = this.physics.add.sprite(100, 450, 'dude');
 
@@ -139,7 +140,12 @@ export class Game extends Scene {
 
             this.player.anims.play('right', true);
         }
-        else {
+
+        else if (this.lava.CheckCollisionObject) { //this SHOULD be doing the hurt animation but idk how to set it up
+            this.player.anims.play('hurt');   
+        }
+
+        else  {
             this.player.setVelocityX(0);
             if (this.immunityFrames > 30) {
                 this.player.anims.play('lavaBurn');
@@ -147,9 +153,11 @@ export class Game extends Scene {
                 this.player.anims.play('turn');
             }
         }
+
         if (this.cursors.up.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-600);
         }
+       
 
 
 
