@@ -30,6 +30,7 @@ export class Game extends Scene {
     score = 0;
     scoreText: any;
     immunityFrames = 0;
+    level = 0;
     collectStar(_player: any, star: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody) {
         star.disableBody(true, true);
 
@@ -48,9 +49,10 @@ export class Game extends Scene {
 
     }
 
-    teleportTouch(_player: any, teleporters: Phaser.Types.Physics.Arcade.SpriteWithStaticBody) {
-        this.score = this.score + 10;
+    teleportTouch(_player: any, teleporters: Phaser.Types.Physics.Arcade.SpriteWithStaticBody) { //over here is where we need to teleport to the new map
         this.scoreText.setText('Score: ' + this.score + ' TELEPORT');
+        this.level = 1;
+        this.player.body.reset(0,0); // Coords for players position after teleporting
     }
 
     create() {
@@ -146,12 +148,6 @@ export class Game extends Scene {
 
             this.player.anims.play('right', true);
         }
-
-        else if (true == true) { //this SHOULD be doing the hurt animation when player collides with lava but idk how to set it up
-            this.player.anims.play('hurt');
-            this.player.setVelocityX(0);
-        }
-
         else {
             this.player.setVelocityX(0);
             if (this.immunityFrames > 30) {
