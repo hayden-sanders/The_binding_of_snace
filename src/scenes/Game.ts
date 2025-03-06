@@ -40,7 +40,7 @@ export class Game extends Scene {
     lavaHurt(_player: any, _lava: Phaser.Types.Physics.Arcade.SpriteWithStaticBody) {
         if (this.immunityFrames <= 0) {
             this.score -= 10;
-            this.scoreText.setText('Score: ' + this.score);    
+            this.scoreText.setText('Score: ' + this.score);
             this.immunityFrames = 60;
 
 
@@ -48,6 +48,10 @@ export class Game extends Scene {
 
     }
 
+    teleportTouch(_player: any, teleporters: Phaser.Types.Physics.Arcade.SpriteWithStaticBody) {
+        this.score = this.score + 10;
+        this.scoreText.setText('Score: ' + this.score + ' TELEPORT');
+    }
 
     create() {
         this.cursors = this.input.keyboard!.createCursorKeys();
@@ -64,7 +68,7 @@ export class Game extends Scene {
         this.lava.create(300, 300, 'lava');
 
         this.teleporters = this.physics.add.staticGroup();
-        this.teleporters.create(750,120, "teleporter")
+        this.teleporters.create(750, 120, "teleporter")
 
         this.player = this.physics.add.sprite(100, 450, 'dude');
 
@@ -127,7 +131,9 @@ export class Game extends Scene {
 
 
     update() {
-        this.immunityFrames--;
+        if (this.immunityFrames > 0) {
+            this.immunityFrames--;
+        }
 
 
         if (this.cursors.left.isDown) {
@@ -141,11 +147,12 @@ export class Game extends Scene {
             this.player.anims.play('right', true);
         }
 
-        else if (this.lava.CheckCollisionObject) { //this SHOULD be doing the hurt animation but idk how to set it up
-            this.player.anims.play('hurt');   
+        else if (true == true) { //this SHOULD be doing the hurt animation when player collides with lava but idk how to set it up
+            this.player.anims.play('hurt');
+            this.player.setVelocityX(0);
         }
 
-        else  {
+        else {
             this.player.setVelocityX(0);
             if (this.immunityFrames > 30) {
                 this.player.anims.play('lavaBurn');
@@ -157,7 +164,7 @@ export class Game extends Scene {
         if (this.cursors.up.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-600);
         }
-       
+
 
 
 
