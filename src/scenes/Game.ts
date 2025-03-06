@@ -29,17 +29,23 @@ export class Game extends Scene {
     stars: any;
     score = 0;
     scoreText: any;
+    immunityFrames = 0;
     collectStar(_player: any, star: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody){
         star.disableBody(true, true);
 
-    this.score += 10;
-    this.scoreText.setText('Score: ' + this.score);
+        this.score += 10;
+        this.scoreText.setText('Score: ' + this.score);
     }    
 
-    lavaHurt(_player: any, lava: Phaser.Types.Physics.Arcade.SpriteWithStaticBody) {
-    
+    lavaHurt(_player: any, _lava: Phaser.Types.Physics.Arcade.SpriteWithStaticBody) {
+        if (this.immunityFrames <= 0){
         this.score -= 10;
+        frames: this.anims.generateFrameNumbers('dude', { start: 4, end: 9 })
         this.scoreText.setText('Score: ' + this.score);
+        this.immunityFrames = 30;
+
+        
+        }
         
     }
 
@@ -87,8 +93,6 @@ export class Game extends Scene {
             repeat: -1
         });
 
-        this.physics.add.collider(this.player, this.platforms);
-
 
         this.player.body.setGravityY(300)
 
@@ -107,22 +111,18 @@ export class Game extends Scene {
         
         this.scoreText = this.add.text(0, 0, 'score: 0', { fontSize: '32px', fill: '#000' });
 
+        this.physics.add.collider(this.player, this.platforms);
+        this.physics.add.collider(this.player, this.platforms);
+        this.physics.add.collider(this.stars, this.platforms);
+        this.physics.add.collider(this.stars, this.lava);
+        this.physics.add.overlap(this.player, this.stars, this.collectStar, undefined, this);
+        this.physics.add.collider(this.player, this.lava, this.lavaHurt, undefined, this);
     }
 
 
     update() {
-
+        this.immunityFrames--;
        
-        
-        this.physics.add.overlap(this.player, this.stars, this.collectStar, undefined, this);
-
-        this.physics.add.collider(this.player, this.platforms);
-
-        this.physics.add.collider(this.stars, this.platforms);
-
-        this.physics.add.collider(this.stars, this.lava)
-
-        this.physics.add.overlap(this.player, this.lava, this.lavaHurt, undefined, this );
 
         if (this.cursors.left.isDown) {
             this.player.setVelocityX(-160);
