@@ -21,7 +21,7 @@ export class Game extends Scene {
     }
 
 
-    
+
     platforms: any;
     lava: any;
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
@@ -30,23 +30,22 @@ export class Game extends Scene {
     score = 0;
     scoreText: any;
     immunityFrames = 0;
-    collectStar(_player: any, star: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody){
+    collectStar(_player: any, star: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody) {
         star.disableBody(true, true);
 
         this.score += 10;
         this.scoreText.setText('Score: ' + this.score);
-    }    
+    }
 
     lavaHurt(_player: any, _lava: Phaser.Types.Physics.Arcade.SpriteWithStaticBody) {
-        if (this.immunityFrames <= 0){
-        this.score -= 10;
-        frames: this.anims.generateFrameNumbers('dude', { start: 4, end: 9 })
-        this.scoreText.setText('Score: ' + this.score);
-        this.immunityFrames = 30;
+        if (this.immunityFrames <= 0) {
+            this.score -= 10;
+            this.scoreText.setText('Score: ' + this.score);
+            this.immunityFrames = 45;
 
-        
+
         }
-        
+
     }
 
 
@@ -63,7 +62,7 @@ export class Game extends Scene {
         this.platforms.create(50, 250, 'ground');
         this.platforms.create(750, 220, 'ground');
         this.lava = this.physics.add.staticGroup();
-        this.lava.create(300,300, 'lava');
+        this.lava.create(300, 300, 'lava');
 
 
         this.player = this.physics.add.sprite(100, 450, 'dude');
@@ -92,6 +91,12 @@ export class Game extends Scene {
             frameRate: 10,
             repeat: -1
         });
+        this.anims.create({
+            key: 'lavaBurn',
+            frames: [{ key: 'dude', frame: 9 }],
+            frameRate: 20,
+        });
+
 
 
         this.player.body.setGravityY(300)
@@ -102,13 +107,13 @@ export class Game extends Scene {
             setXY: { x: 12, y: 0, stepX: 70 }
         });
 
-       this.stars.children.iterate(function (child) {
+        this.stars.children.iterate(function (child) {
 
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-        
+
         });
 
-        
+
         this.scoreText = this.add.text(0, 0, 'score: 0', { fontSize: '32px', fill: '#000' });
 
         this.physics.add.collider(this.player, this.platforms);
@@ -122,7 +127,7 @@ export class Game extends Scene {
 
     update() {
         this.immunityFrames--;
-       
+
 
         if (this.cursors.left.isDown) {
             this.player.setVelocityX(-160);
@@ -136,10 +141,12 @@ export class Game extends Scene {
         }
         else {
             this.player.setVelocityX(0);
-
-            this.player.anims.play('turn');
+            if (this.immunityFrames > 0) {
+                this.player.anims.play('lavaBurn');
+            } else {
+                this.player.anims.play('turn');
+            }
         }
-
         if (this.cursors.up.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-600);
         }
