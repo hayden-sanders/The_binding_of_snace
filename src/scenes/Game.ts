@@ -129,7 +129,8 @@ export class Game extends Scene {
         this.physics.add.collider(this.stars, this.lava);
         this.physics.add.overlap(this.player, this.stars, this.collectStar, undefined, this);
         this.physics.add.collider(this.player, this.lava, this.lavaHurt, undefined, this);
-    }
+        this.physics.add.collider(this.player, this.teleporters, this.teleportTouch, undefined, this)
+    }   
 
 
     update() {
