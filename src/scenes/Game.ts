@@ -41,7 +41,7 @@ export class Game extends Scene {
         if (this.immunityFrames <= 0) {
             this.score -= 10;
             this.scoreText.setText('Score: ' + this.score);
-            this.immunityFrames = 45;
+            this.immunityFrames = 60;
 
 
         }
@@ -94,7 +94,7 @@ export class Game extends Scene {
         this.anims.create({
             key: 'lavaBurn',
             frames: [{ key: 'dude', frame: 9 }],
-            frameRate: 20,
+            frameRate: 10,
         });
 
 
@@ -141,7 +141,7 @@ export class Game extends Scene {
         }
         else {
             this.player.setVelocityX(0);
-            if (this.immunityFrames > 0) {
+            if (this.immunityFrames > 30) {
                 this.player.anims.play('lavaBurn');
             } else {
                 this.player.anims.play('turn');
