@@ -1,12 +1,12 @@
 import { Scene } from 'phaser';
 
-export class Game extends Scene {
+export class LevelOne extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     msg_text: Phaser.GameObjects.Text;
 
     constructor() {
-        super('Game');
+        super('LevelOne');
     }
     preload() {
         this.load.image('sky', 'assets/sky.png');
