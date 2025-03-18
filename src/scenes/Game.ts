@@ -49,7 +49,7 @@ export class Game extends Scene {
 
     }
 
-    teleportTouch(_player: any, teleporters: Phaser.Types.Physics.Arcade.SpriteWithStaticBody) { //over here is where we need to teleport to the new map
+    teleportTouch(_player: any, _teleporters: Phaser.Types.Physics.Arcade.SpriteWithStaticBody) { //over here is where we need to teleport to the new map
         this.scoreText.setText('Score: ' + this.score + ' TELEPORT');
         this.level = 1;
         this.player.body.reset(0,0); // Coords for players position after teleporting
