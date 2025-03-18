@@ -8,6 +8,9 @@ export class LevelOne extends Scene {
     constructor() {
         super('LevelOne');
     }
+    init(data: any){
+        this.score = data.score;
+    }
     preload() {
         this.load.image('sky', 'assets/sky.png');
         this.load.image('ground', 'assets/platform.png');
@@ -76,7 +79,7 @@ export class LevelOne extends Scene {
 
         //this. player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
-
+ 
 
 
         this.anims.create({
@@ -167,7 +170,7 @@ export class LevelOne extends Scene {
 
         // replace with portal collision
         if (this.cursors.up.isDown && this.cursors.down.isDown){
-            this.scene.start("LevelTwo");
+            this.scene.start("LevelTwo", { score: this.score});
         }
 
 
