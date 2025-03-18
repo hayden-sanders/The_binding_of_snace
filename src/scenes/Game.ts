@@ -114,21 +114,24 @@ export class Game extends Scene {
             setXY: { x: 12, y: 0, stepX: 70 }
         });
 
-        this.stars.children.iterate(function (child) {
+        this.stars.children.iterate(function (child: any) {
 
             child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
         });
 
 
-        this.scoreText = this.add.text(0, 0, 'score: 0', { fontSize: '32px', fill: '#000' });
+        this.scoreText = this.add.text(0, 0, 'score: 0', { fontSize: '32px', color: '#000' });
 
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.stars, this.platforms);
         this.physics.add.collider(this.stars, this.lava);
+        //@ts-ignore
         this.physics.add.overlap(this.player, this.stars, this.collectStar, undefined, this);
+        //@ts-ignore
         this.physics.add.collider(this.player, this.lava, this.lavaHurt, undefined, this);
+        //@ts-ignore
         this.physics.add.collider(this.player, this.teleporters, this.teleportTouch, undefined, this)
     }   
 
