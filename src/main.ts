@@ -1,10 +1,13 @@
 import { Boot } from './scenes/Boot';
-import { LevelOne } from './scenes/LevelThree';
+import { LevelOne } from './scenes/LevelOne';
+import { LevelTwo } from './scenes/LevelTwo';
+import { LevelThree } from './scenes/LevelThree';
 import { GameOver } from './scenes/GameOver';
 import { MainMenu } from './scenes/MainMenu';
 import { Preloader } from './scenes/Preloader';
 
 import { Game, Types } from "phaser";
+
 
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
@@ -31,6 +34,8 @@ const config: Types.Core.GameConfig = {
         Preloader,
         MainMenu,
         LevelOne,
+        LevelTwo,
+        LevelThree,
         GameOver
     ]
 };

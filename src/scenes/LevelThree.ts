@@ -1,12 +1,12 @@
 import { Scene } from 'phaser';
 
-export class LevelOne extends Scene {
+export class LevelThree extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     msg_text: Phaser.GameObjects.Text;
 
     constructor() {
-        super('LevelOne');
+        super('LevelThree');
     }
     preload() {
         this.load.image('sky', 'assets/sky.png');
@@ -66,7 +66,7 @@ export class LevelOne extends Scene {
         this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
         this.platforms.create(600, 400, 'ground');
         this.platforms.create(50, 250, 'ground');
-        this.platforms.create(750, 220, 'ground');
+        this.platforms.create(750, 230, 'ground');
         this.lava.create(300, 300, 'lava');
 
         this.teleporters = this.physics.add.staticGroup();
@@ -167,7 +167,7 @@ export class LevelOne extends Scene {
 
         // replace with portal collision
         if (this.cursors.up.isDown && this.cursors.down.isDown){
-            this.scene.start("LevelTwo");
+            this.scene.start("LevelThree");
         }
 
 
