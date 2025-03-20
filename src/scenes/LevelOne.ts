@@ -8,9 +8,7 @@ export class LevelOne extends Scene {
     constructor() {
         super('LevelOne');
     }
-    init(data: any){
-        this.score = data.score;
-    }
+
     preload() {
         this.load.image('sky', 'assets/sky.png');
         this.load.image('ground', 'assets/platform.png');

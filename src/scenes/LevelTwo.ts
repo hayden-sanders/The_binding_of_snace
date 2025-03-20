@@ -63,7 +63,7 @@ export class LevelTwo extends Scene {
         this.platforms = this.physics.add.staticGroup();
         this.lava = this.physics.add.staticGroup();
 
-        this.platforms.create(400, 568, 'ground').setScale(1).refreshBody();
+        this.platforms.create(400, 568, 'lava').setScale(6).refreshBody();
         this.platforms.create(600, 400, 'ground');
         this.platforms.create(50, 250, 'ground');
         this.platforms.create(750, 220, 'ground');
