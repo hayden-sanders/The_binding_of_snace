@@ -167,7 +167,7 @@ export class LevelThree extends Scene {
 
         // replace with portal collision
         if (this.cursors.up.isDown && this.cursors.down.isDown){
-            this.scene.start("LevelOne");
+            this.scene.start("GameOver");
         }
 
 
