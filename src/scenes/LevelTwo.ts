@@ -63,16 +63,16 @@ export class LevelTwo extends Scene {
         this.platforms = this.physics.add.staticGroup();
         this.lava = this.physics.add.staticGroup();
 
-        this.platforms.create(400, 568, 'lava').setScale(6).refreshBody();
+        this.lava.create(400, 568, 'lava').setScale(2).refreshBody();
         this.platforms.create(600, 400, 'ground');
-        this.platforms.create(50, 250, 'ground');
+        this.platforms.create(50, 200, 'ground').setScale(.5).refreshBody();
         this.platforms.create(750, 220, 'ground');
-        this.lava.create(300, 300, 'lava');
+        
 
         this.teleporters = this.physics.add.staticGroup();
         this.teleporters.create(750, 120, "teleporter")
 
-        this.player = this.physics.add.sprite(100, 450, 'dude');
+        this.player = this.physics.add.sprite(15, 50, 'dude');
 
         //this. player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
