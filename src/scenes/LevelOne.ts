@@ -53,8 +53,8 @@ export class LevelOne extends Scene {
     teleportTouch(_player: any, _teleporters: Phaser.Types.Physics.Arcade.SpriteWithStaticBody) { //over here is where we need to teleport to the new map
         this.scoreText.setText('Score: ' + this.score + ' TELEPORT');
         this.level = 1;
-        this.player.body.reset(0,0); // Coords for players position after teleporting
-    }
+        this.scene.start("LevelTwo", { score: this.score})
+        }
 
     create() {
         this.cursors = this.input.keyboard!.createCursorKeys();
@@ -65,13 +65,12 @@ export class LevelOne extends Scene {
         this.lava = this.physics.add.staticGroup();
 
         this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-        this.platforms.create(600, 400, 'ground');
+        this.lava.create(600, 400, 'lava');
         this.platforms.create(50, 250, 'ground');
         this.platforms.create(750, 220, 'ground');
-        this.lava.create(300, 300, 'lava');
 
         this.teleporters = this.physics.add.staticGroup();
-        this.teleporters.create(750, 120, "teleporter")
+        this.teleporters.create(750, 120, "teleporter").setScale(.5).refreshBody()
 
         this.player = this.physics.add.sprite(100, 450, 'dude');
 
@@ -111,8 +110,8 @@ export class LevelOne extends Scene {
 
         this.stars = this.physics.add.group({
             key: 'star',
-            repeat: 11,
-            setXY: { x: 12, y: 0, stepX: 70 }
+            repeat: 10,
+            setXY: { x: 12, y: 0, stepX: 57 }
         });
 
         this.stars.children.iterate(function (child: any) {
