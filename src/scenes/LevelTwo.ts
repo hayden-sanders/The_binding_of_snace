@@ -69,6 +69,7 @@ export class LevelTwo extends Scene {
         this.platforms.create(50, 200, 'ground').setScale(.5).refreshBody();
         this.platforms.create(750, 220, 'ground')
         this.platforms.create(250, 150, 'ground').setScale(0.05, 11).refreshBody();
+        this.platforms.create(300, 160, 'ground').setScale(.2, 1).refreshBody();
         this.teleporters.create(750, 120, "teleporter").setScale(.5).refreshBody();
 
         this.player = this.physics.add.sprite(15, 50, 'dude');
