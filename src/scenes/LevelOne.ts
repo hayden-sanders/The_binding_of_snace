@@ -70,7 +70,7 @@ export class LevelOne extends Scene {
         this.platforms.create(750, 220, 'ground');
 
         this.teleporters = this.physics.add.staticGroup();
-        this.teleporters.create(750, 120, "teleporter").setScale(.5).refreshBody()
+        this.teleporters.create(720, 163, "teleporter").setScale(.5).refreshBody()
 
         this.player = this.physics.add.sprite(100, 450, 'dude');
 

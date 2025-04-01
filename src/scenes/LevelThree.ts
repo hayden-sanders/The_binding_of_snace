@@ -64,13 +64,13 @@ export class LevelThree extends Scene {
         this.lava = this.physics.add.staticGroup();
 
         this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-        this.platforms.create(600, 400, 'ground');
-        this.platforms.create(50, 250, 'ground');
-        this.platforms.create(750, 230, 'ground');
-        this.lava.create(300, 300, 'lava');
+        
+        this.platforms.create(80, 250, 'ground').setScale(.1, .1).refreshBody();
+        this.lava.create(300, 330, 'lava').setScale(.1, 13).refreshBody();
+        this.lava.create(680, 568, 'lava').setScale(2).refreshBody();
 
         this.teleporters = this.physics.add.staticGroup();
-        this.teleporters.create(750, 120, "teleporter")
+        this.teleporters.create(720, 500, "teleporter").setScale(.5).refreshBody()
 
         this.player = this.physics.add.sprite(100, 450, 'dude');
 
