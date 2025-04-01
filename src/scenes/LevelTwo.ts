@@ -22,7 +22,7 @@ export class LevelTwo extends Scene {
 
 
     teleporters: any;
-    platforms: any;
+    platforms: Phaser.Physics.Arcade.StaticGroup;
     lava: any;
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
     cursors: any;
@@ -62,15 +62,14 @@ export class LevelTwo extends Scene {
 
         this.platforms = this.physics.add.staticGroup();
         this.lava = this.physics.add.staticGroup();
+        this.teleporters = this.physics.add.staticGroup()
 
         this.lava.create(400, 568, 'lava').setScale(2).refreshBody();
         this.platforms.create(600, 400, 'ground');
         this.platforms.create(50, 200, 'ground').setScale(.5).refreshBody();
-        this.platforms.create(750, 220, 'ground');
-        
-
-        this.teleporters = this.physics.add.staticGroup();
-        this.teleporters.create(750, 120, "teleporter")
+        this.platforms.create(750, 220, 'ground')
+        this.platforms.create(250, 150, 'ground').setScale(0.05, 11).refreshBody();
+        this.teleporters.create(750, 120, "teleporter").setScale(.5).refreshBody();
 
         this.player = this.physics.add.sprite(15, 50, 'dude');
 
@@ -110,8 +109,8 @@ export class LevelTwo extends Scene {
 
         this.stars = this.physics.add.group({
             key: 'star',
-            repeat: 11,
-            setXY: { x: 12, y: 0, stepX: 70 }
+            repeat: 10,
+            setXY: { x: 12, y: 0, stepX: 57 }
         });
 
         this.stars.children.iterate(function (child: any) {
