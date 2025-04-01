@@ -122,6 +122,7 @@ export class LevelOne extends Scene {
 
 
         this.scoreText = this.add.text(0, 0, 'score: 0', { fontSize: '32px', color: '#000' });
+        this.add.text(300, 300, 'JUMP ON THE STARS ', { fontSize: '32px', color: '#000' });
 
         this.physics.add.collider(this.player, this.platforms);
         this.physics.add.collider(this.player, this.platforms);
